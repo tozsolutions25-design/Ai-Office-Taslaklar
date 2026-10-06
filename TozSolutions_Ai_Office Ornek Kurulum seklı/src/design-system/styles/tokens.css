@@ -1,0 +1,316 @@
+/*
+ * TOZ AI Office — design tokens.
+ *
+ * THE single source of truth for colour, type, radius, elevation, border and
+ * motion VALUES. TypeScript owns the token names
+ * (`src/design-system/tokens/*.ts`); this file owns the values. The parity test
+ * `tests/designSystem.tokens.test.ts` fails if the two ever drift.
+ *
+ * Direction: dark-first. The dark palette is the default applied to `:root`,
+ * and a light palette is layered on top via `[data-theme="light"]`. Because
+ * theming is pure CSS driven by one attribute, switching themes needs no
+ * JavaScript and no re-render.
+ *
+ * Visual intent: a deep navy foundation, turquoise/blue technology accents,
+ * restrained yellow highlights, subtle borders, tonal surface separation and
+ * minimal shadow. Not neon, not glass-heavy, not decorative.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* ---------------------------------------------------------------------
+   * Surfaces — dark navy foundation
+   * Tonal steps rather than shadows do the separation work in dark mode.
+   * ------------------------------------------------------------------ */
+  --toz-background: #070b14;
+  --toz-surface: #0d1320;
+  --toz-surface-elevated: #141d2e;
+  --toz-surface-muted: #0a101b;
+  --toz-surface-inset: #05080f;
+  --toz-overlay-scrim: rgb(3 6 12 / 0.72);
+
+  /* ---------------------------------------------------------------------
+   * Foreground
+   * ------------------------------------------------------------------ */
+  --toz-foreground: #e8eef7;
+  --toz-foreground-muted: #a3b3c9;
+  --toz-foreground-subtle: #7d8da4;
+  --toz-foreground-on-accent: #14100a;
+
+  /* ---------------------------------------------------------------------
+   * Borders — subtle by default, stronger for emphasis
+   * ------------------------------------------------------------------ */
+  --toz-border: #1d2839;
+  --toz-border-strong: #2c3a4f;
+  --toz-border-muted: #151d2b;
+
+  /* ---------------------------------------------------------------------
+   * Primary — turquoise technology accent
+   * ------------------------------------------------------------------ */
+  --toz-primary: #22d3ee;
+  --toz-primary-hover: #5ce0f2;
+  --toz-primary-foreground: #04121a;
+  --toz-primary-subtle: rgb(34 211 238 / 0.14);
+
+  /* ---------------------------------------------------------------------
+   * Secondary — deep blue, quieter than primary
+   * ------------------------------------------------------------------ */
+  --toz-secondary: #1b3557;
+  --toz-secondary-hover: #24446e;
+  --toz-secondary-foreground: #d5e6fa;
+  --toz-secondary-subtle: rgb(56 130 199 / 0.16);
+
+  /* ---------------------------------------------------------------------
+   * Accent — controlled yellow highlight, used sparingly
+   * ------------------------------------------------------------------ */
+  --toz-accent: #f5c518;
+  --toz-accent-hover: #ffd94d;
+  --toz-accent-foreground: #14100a;
+  --toz-accent-subtle: rgb(245 197 24 / 0.14);
+
+  /* ---------------------------------------------------------------------
+   * Status
+   * `*-foreground` is the readable text colour for use on that hue.
+   * ------------------------------------------------------------------ */
+  --toz-success: #34d399;
+  --toz-success-foreground: #04231a;
+  --toz-warning: #fbbf24;
+  --toz-warning-foreground: #241800;
+  --toz-destructive: #f87171;
+  --toz-destructive-hover: #fca5a5;
+  --toz-destructive-foreground: #2a0808;
+  --toz-info: #60a5fa;
+  --toz-info-foreground: #04182f;
+  --toz-processing: #a78bfa;
+  --toz-processing-foreground: #150a2e;
+
+  /* ---------------------------------------------------------------------
+   * Effects
+   * ------------------------------------------------------------------ */
+  --toz-focus-ring: #7dd3fc;
+  --toz-selection-background: rgb(34 211 238 / 0.28);
+  --toz-selection-foreground: #ffffff;
+  --toz-gradient-brand: linear-gradient(135deg, #22d3ee 0%, #3b82f6 55%, #6366f1 100%);
+  --toz-gradient-surface: linear-gradient(180deg, rgb(255 255 255 / 0.04) 0%, rgb(255 255 255 / 0) 100%);
+  --toz-shadow-color: rgb(2 5 12 / 0.55);
+
+  /* ---------------------------------------------------------------------
+   * Typography
+   * ------------------------------------------------------------------ */
+  --toz-font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", roboto,
+    "Helvetica Neue", arial, "Noto Sans", sans-serif;
+  --toz-font-mono: ui-monospace, "SFMono-Regular", "SF Mono", menlo, consolas,
+    "Liberation Mono", monospace;
+
+  --toz-font-size-display: clamp(2.25rem, 1.35rem + 3.6vw, 3.5rem);
+  --toz-font-size-h1: clamp(1.875rem, 1.3rem + 2.3vw, 2.75rem);
+  --toz-font-size-h2: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem);
+  --toz-font-size-h3: clamp(1.25rem, 1.08rem + 0.7vw, 1.625rem);
+  --toz-font-size-h4: clamp(1.0625rem, 1rem + 0.25vw, 1.3125rem);
+  --toz-font-size-body-lg: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --toz-font-size-body: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --toz-font-size-body-sm: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
+  --toz-font-size-caption: clamp(0.75rem, 0.73rem + 0.08vw, 0.8125rem);
+  --toz-font-size-label: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --toz-font-size-button: 0.9375rem;
+  --toz-font-size-code: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
+
+  --toz-line-height-display: 1.06;
+  --toz-line-height-h1: 1.12;
+  --toz-line-height-h2: 1.18;
+  --toz-line-height-h3: 1.28;
+  --toz-line-height-h4: 1.36;
+  --toz-line-height-body-lg: 1.65;
+  --toz-line-height-body: 1.7;
+  --toz-line-height-body-sm: 1.6;
+  --toz-line-height-caption: 1.5;
+  --toz-line-height-label: 1.4;
+  --toz-line-height-button: 1.2;
+  --toz-line-height-code: 1.6;
+
+  --toz-font-weight-regular: 400;
+  --toz-font-weight-medium: 500;
+  --toz-font-weight-semibold: 600;
+  --toz-font-weight-bold: 700;
+
+  --toz-letter-spacing-display: -0.03em;
+  --toz-letter-spacing-h1: -0.025em;
+  --toz-letter-spacing-h2: -0.02em;
+  --toz-letter-spacing-h3: -0.015em;
+  --toz-letter-spacing-h4: -0.01em;
+  --toz-letter-spacing-body-lg: -0.005em;
+  --toz-letter-spacing-caption: 0.01em;
+  --toz-letter-spacing-label: 0.005em;
+  --toz-letter-spacing-button: 0.005em;
+
+  /* ---------------------------------------------------------------------
+   * Spacing — 4px base grid
+   * ------------------------------------------------------------------ */
+  --toz-space-0: 0rem;
+  --toz-space-1: 0.25rem;
+  --toz-space-2: 0.5rem;
+  --toz-space-3: 0.75rem;
+  --toz-space-4: 1rem;
+  --toz-space-5: 1.25rem;
+  --toz-space-6: 1.5rem;
+  --toz-space-8: 2rem;
+  --toz-space-10: 2.5rem;
+  --toz-space-12: 3rem;
+  --toz-space-14: 3.5rem;
+  --toz-space-16: 4rem;
+  --toz-space-20: 5rem;
+  --toz-space-24: 6rem;
+  --toz-space-28: 7rem;
+  --toz-space-32: 8rem;
+
+  /* ---------------------------------------------------------------------
+   * Radius
+   * ------------------------------------------------------------------ */
+  --toz-radius-none: 0;
+  --toz-radius-small: 0.25rem;
+  --toz-radius-medium: 0.5rem;
+  --toz-radius-large: 0.75rem;
+  --toz-radius-card: 1rem;
+  --toz-radius-button: 0.625rem;
+  --toz-radius-pill: 9999px;
+
+  /* ---------------------------------------------------------------------
+   * Elevation — restrained
+   * ------------------------------------------------------------------ */
+  --toz-elevation-none: none;
+  --toz-elevation-subtle: 0 1px 2px 0 var(--toz-shadow-color);
+  --toz-elevation-card: 0 2px 8px -2px var(--toz-shadow-color),
+    0 1px 3px -1px var(--toz-shadow-color);
+  --toz-elevation-elevated: 0 8px 24px -6px var(--toz-shadow-color),
+    0 2px 6px -2px var(--toz-shadow-color);
+  --toz-elevation-modal: 0 24px 64px -12px var(--toz-shadow-color),
+    0 8px 16px -8px var(--toz-shadow-color);
+
+  /* ---------------------------------------------------------------------
+   * Borders
+   * ------------------------------------------------------------------ */
+  --toz-border-width: 1px;
+  --toz-border-width-thick: 2px;
+
+  /* ---------------------------------------------------------------------
+   * Motion
+   * ------------------------------------------------------------------ */
+  --toz-duration-instant: 0ms;
+  --toz-duration-fast: 120ms;
+  --toz-duration-normal: 220ms;
+  --toz-duration-slow: 420ms;
+
+  --toz-easing-linear: linear;
+  --toz-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --toz-easing-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --toz-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --toz-easing-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  /* ---------------------------------------------------------------------
+   * Layout
+   * ------------------------------------------------------------------ */
+  --toz-content-width-default: 72rem;
+  --toz-content-width-prose: 46rem;
+  --toz-content-width-narrow: 32rem;
+  --toz-content-width-wide: 96rem;
+  --toz-touch-target: 2.75rem;
+  --toz-gutter: var(--toz-space-4);
+
+  /* ---------------------------------------------------------------------
+   * Z-index scale — centralised so overlays always stack predictably
+   * ------------------------------------------------------------------ */
+  --toz-z-base: 0;
+  --toz-z-raised: 10;
+  --toz-z-sticky: 100;
+  --toz-z-header: 200;
+  --toz-z-overlay: 300;
+  --toz-z-modal: 400;
+  --toz-z-tooltip: 500;
+}
+
+/*
+ * Light theme.
+ *
+ * Semantic names are identical; only values change. Destructive is a darker
+ * red in light mode because the dark-mode hue fails contrast on white.
+ */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --toz-background: #ffffff;
+  --toz-surface: #ffffff;
+  --toz-surface-elevated: #ffffff;
+  --toz-surface-muted: #f6f8fb;
+  --toz-surface-inset: #eef2f7;
+  --toz-overlay-scrim: rgb(15 23 32 / 0.44);
+
+  --toz-foreground: #0b1220;
+  --toz-foreground-muted: #4d5f76;
+  --toz-foreground-subtle: #6b7d93;
+  --toz-foreground-on-accent: #ffffff;
+
+  --toz-border: #dde4ed;
+  --toz-border-strong: #b9c4d2;
+  --toz-border-muted: #e9eef4;
+
+  --toz-primary: #0e7490;
+  --toz-primary-hover: #0b5f75;
+  --toz-primary-foreground: #ffffff;
+  --toz-primary-subtle: rgb(14 116 144 / 0.1);
+
+  --toz-secondary: #dbe7f4;
+  --toz-secondary-hover: #c6d8ec;
+  --toz-secondary-foreground: #10243c;
+  --toz-secondary-subtle: rgb(14 116 144 / 0.06);
+
+  --toz-accent: #a16207;
+  --toz-accent-hover: #854d0a;
+  --toz-accent-foreground: #ffffff;
+  --toz-accent-subtle: rgb(161 98 7 / 0.1);
+
+  --toz-success: #047857;
+  --toz-success-foreground: #ffffff;
+  --toz-warning: #b45309;
+  --toz-warning-foreground: #ffffff;
+  --toz-destructive: #b91c1c;
+  --toz-destructive-hover: #991b1b;
+  --toz-destructive-foreground: #ffffff;
+  --toz-info: #1d4ed8;
+  --toz-info-foreground: #ffffff;
+  --toz-processing: #6d28d9;
+  --toz-processing-foreground: #ffffff;
+
+  --toz-focus-ring: #0284c7;
+  --toz-selection-background: rgb(14 116 144 / 0.2);
+  --toz-selection-foreground: #0b1220;
+  --toz-gradient-brand: linear-gradient(135deg, #0e7490 0%, #1d4ed8 55%, #4338ca 100%);
+  --toz-gradient-surface: linear-gradient(180deg, rgb(11 18 32 / 0.03) 0%, rgb(11 18 32 / 0) 100%);
+  --toz-shadow-color: rgb(15 23 32 / 0.12);
+}
+
+/*
+ * Reduced motion.
+ *
+ * Transitions and animations are collapsed to near-zero rather than removed, so
+ * that state changes remain perceivable. `animation-iteration-count: 1` stops
+ * looping spinners from animating; those elements expose a static indicator and
+ * a text label instead, so no information is carried by motion alone.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --toz-duration-instant: 0.01ms;
+    --toz-duration-fast: 0.01ms;
+    --toz-duration-normal: 0.01ms;
+    --toz-duration-slow: 0.01ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

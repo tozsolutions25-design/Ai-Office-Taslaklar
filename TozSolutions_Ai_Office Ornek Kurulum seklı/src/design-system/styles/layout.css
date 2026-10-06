@@ -1,0 +1,192 @@
+/*
+ * TOZ AI Office — layout layer.
+ *
+ * Primitives only: containers, sections, grids, stacks and clusters. These are
+ * the building blocks later pages compose; they carry no visual identity beyond
+ * spacing and alignment so a page never has to invent its own layout CSS.
+ *
+ * Mobile-first throughout: each block is correct at 320px and rules above the
+ * base breakpoint are additive.
+ */
+
+/* ---------------------------------------------------------------
+ * Container
+ * ------------------------------------------------------------- */
+
+.toz-container {
+  width: 100%;
+  max-width: var(--toz-content-width-default);
+  margin-inline: auto;
+  padding-inline: var(--toz-gutter);
+}
+
+.toz-container[data-width="narrow"] { max-width: var(--toz-content-width-narrow); }
+.toz-container[data-width="prose"] { max-width: var(--toz-content-width-prose); }
+.toz-container[data-width="wide"] { max-width: var(--toz-content-width-wide); }
+
+/* A container with no inline padding, for edge-to-edge sections. */
+.toz-container[data-gutter="none"] { padding-inline: 0; }
+
+/* ---------------------------------------------------------------
+ * Main region
+ * ------------------------------------------------------------- */
+
+.toz-main {
+  display: block;
+  /* Stops the content collapsing against a sticky header on short pages. */
+  min-block-size: 60vh;
+  min-inline-size: 0;
+}
+
+/* ---------------------------------------------------------------
+ * Section
+ * ------------------------------------------------------------- */
+
+.toz-section {
+  /* Resolves the section-spacing scale to real tokens. */
+  --toz-section-space: var(--toz-space-16);
+  padding-block: var(--toz-section-space);
+  position: relative;
+}
+
+.toz-section[data-spacing="sm"] { --toz-section-space: var(--toz-space-12); }
+.toz-section[data-spacing="md"] { --toz-section-space: var(--toz-space-16); }
+.toz-section[data-spacing="lg"] { --toz-section-space: var(--toz-space-24); }
+.toz-section[data-spacing="xl"] { --toz-section-space: var(--toz-space-32); }
+
+/* Alternate tonal background, for separating adjacent sections. */
+.toz-section[data-tone="muted"] { background-color: var(--toz-surface-muted); }
+.toz-section[data-tone="elevated"] { background-color: var(--toz-surface-elevated); }
+.toz-section[data-tone="inset"] { background-color: var(--toz-surface-inset); }
+
+/* A restrained top hairline rather than a heavy divider. */
+.toz-section[data-divider="true"] {
+  border-block-start: var(--toz-border-width) solid var(--toz-border-muted);
+}
+
+/* ---------------------------------------------------------------
+ * Stack — consistent vertical rhythm
+ * ------------------------------------------------------------- */
+
+.toz-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--toz-stack-gap, var(--toz-space-4));
+  min-width: 0;
+}
+
+.toz-stack[data-align="start"] { align-items: flex-start; }
+.toz-stack[data-align="center"] { align-items: center; }
+.toz-stack[data-align="end"] { align-items: flex-end; }
+.toz-stack[data-align="stretch"] { align-items: stretch; }
+
+/* ---------------------------------------------------------------
+ * Cluster — inline group that wraps
+ * ------------------------------------------------------------- */
+
+.toz-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--toz-cluster-gap, var(--toz-space-3));
+  align-items: var(--toz-cluster-align, center);
+  min-width: 0;
+}
+
+.toz-cluster[data-align="start"] { --toz-cluster-align: flex-start; }
+.toz-cluster[data-align="center"] { --toz-cluster-align: center; }
+.toz-cluster[data-align="end"] { --toz-cluster-align: flex-end; }
+.toz-cluster[data-align="stretch"] { --toz-cluster-align: stretch; }
+.toz-cluster[data-justify="start"] { justify-content: flex-start; }
+.toz-cluster[data-justify="center"] { justify-content: center; }
+.toz-cluster[data-justify="end"] { justify-content: flex-end; }
+.toz-cluster[data-justify="between"] { justify-content: space-between; }
+
+/*
+ * Auto-fit grids.
+ *
+ * `minmax` with a readable minimum means cards reflow by available width rather
+ * than by breakpoint, so a card never becomes narrower than its content allows.
+ */
+.toz-grid {
+  display: grid;
+  gap: var(--toz-grid-gap, var(--toz-space-6));
+  grid-template-columns: var(--toz-grid-columns, 1fr);
+  min-width: 0;
+}
+
+.toz-grid[data-columns="2"] { --toz-grid-columns: repeat(2, minmax(0, 1fr)); }
+.toz-grid[data-columns="3"] { --toz-grid-columns: repeat(3, minmax(0, 1fr)); }
+.toz-grid[data-columns="4"] { --toz-grid-columns: repeat(4, minmax(0, 1fr)); }
+
+@media (min-width: 480px) {
+  .toz-grid[data-auto] { --toz-grid-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 768px) {
+  .toz-grid[data-columns="2"] { --toz-grid-columns: repeat(2, minmax(0, 1fr)); }
+  .toz-grid[data-columns="3"] { --toz-grid-columns: repeat(3, minmax(0, 1fr)); }
+  .toz-grid[data-columns="4"] { --toz-grid-columns: repeat(2, minmax(0, 1fr)); }
+  .toz-grid[data-auto] { --toz-grid-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .toz-grid[data-columns="4"] { --toz-grid-columns: repeat(4, minmax(0, 1fr)); }
+  .toz-grid[data-auto] { --toz-grid-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/*
+ * Large desktop.
+ *
+ * Content widths are already capped, so nothing widens here. Instead the extra
+ * room becomes breathing space: gutters grow and sections gain vertical room, so
+ * a 1600px display does not simply show the same layout with longer line boxes.
+ */
+@media (min-width: 1280px) {
+  .toz-container { --toz-gutter: var(--toz-space-6); }
+  .toz-section[data-spacing="md"] { --toz-section-space: var(--toz-space-20); }
+  .toz-section[data-spacing="lg"] { --toz-section-space: var(--toz-space-28); }
+  .toz-section[data-spacing="xl"] { --toz-section-space: var(--toz-space-32); }
+  .toz-grid { --toz-grid-gap: var(--toz-space-8); }
+}
+
+/* A grid item used outside an auto-resetting grid still needs the list reset. */
+.toz-grid__item {
+  list-style: none;
+  min-inline-size: 0;
+}
+
+/* ---------------------------------------------------------------
+ * Centred content
+ * ------------------------------------------------------------- */
+.toz-centered {
+  margin-inline: auto;
+  max-width: var(--toz-content-width-prose);
+  text-align: center;
+}
+
+/* Centred content column inside a full-width section. */
+.toz-centered[data-width="default"] { max-width: var(--toz-content-width-default); }
+.toz-centered[data-width="narrow"] { max-width: var(--toz-content-width-narrow); }
+.toz-centered[data-width="wide"] { max-width: var(--toz-content-width-wide); }
+
+/*
+ * Responsive visibility.
+ * Content that is supplementary can be hidden on small screens, but anything
+ * required to use the page must never be hidden — see components.css for the
+ * navigation rule that enforces this.
+ */
+@media (min-width: 768px) {
+  .toz-hide-below-md { display: none; }
+}
+
+@media (max-width: 767px) {
+  .toz-hide-below-md-inline { display: none; }
+}
+
+@media (max-width: 1023px) {
+  .toz-hide-below-lg { display: none; }
+}
+
+@media (max-width: 1279px) {
+  .toz-hide-below-xl { display: none; }
+}

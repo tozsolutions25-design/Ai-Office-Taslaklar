@@ -1,0 +1,8 @@
+# Normalize line endings so the working tree does not churn between platforms.
+* text=auto eol=lf
+
+# Lock files and generated paths stay as-is.
+package-lock.json -text
+
+# Secret and asset exclusions live in .gitignore, which handles them without
+# the negative-pattern warnings git attributes produce.

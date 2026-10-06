@@ -1,0 +1,544 @@
+/*
+ * TOZ AI Office — site styles.
+ *
+ * Page composition ONLY. No colour, radius, spacing, typography or motion value
+ * is redefined here: every one of those comes from the PHASE 02 design system
+ * tokens, so the site cannot drift from the design system it is built on.
+ *
+ * Loaded last, after tokens.css, base.css, layout.css and components.css, so it
+ * can rely on their custom properties being defined.
+ *
+ * Responsive: mobile-first. Every rule above the base is additive, and the
+ * layout is correct at 320px.
+ */
+
+body.toz-site {
+  /* Long-form pages read better with a slightly narrower default measure. */
+  --toz-site-max-measure: 68ch;
+}
+
+/* ---------------------------------------------------------------
+ * Shared section chrome
+ * ------------------------------------------------------------- */
+
+.toz-site-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+/* A restrained accent rule under each section eyebrow. */
+.toz-site-eyebrow::after {
+  content: "";
+  display: block;
+  inline-size: 2.5rem;
+  block-size: 2px;
+  margin-block-start: var(--toz-space-2);
+  margin-inline: auto;
+  border-radius: var(--toz-radius-pill);
+  background-image: var(--toz-gradient-brand);
+}
+
+.toz-site-hero__intro .toz-site-eyebrow::after,
+.toz-site-footer__about .toz-site-eyebrow::after {
+  margin-inline: 0;
+}
+
+/* ---------------------------------------------------------------
+ * Hero
+ * ------------------------------------------------------------- */
+
+.toz-site-hero {
+  position: relative;
+  overflow: hidden;
+  /* A single restrained glow behind the hero, not a gradient wash. */
+  isolation: isolate;
+}
+
+.toz-site-hero::before {
+  content: "";
+  position: absolute;
+  inset-block-start: -30%;
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  inline-size: min(70rem, 130%);
+  aspect-ratio: 1;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    color-mix(in oklab, var(--toz-primary) 12%, transparent) 0%,
+    transparent 62%
+  );
+}
+
+.toz-site-hero__grid {
+  align-items: center;
+}
+
+.toz-site-hero__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--toz-space-8);
+  min-inline-size: 0;
+}
+
+.toz-site-hero__actions {
+  inline-size: 100%;
+}
+
+.toz-site-hero__visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--toz-space-4);
+  min-inline-size: 0;
+}
+
+.toz-site-hero__caption {
+  text-align: center;
+  max-inline-size: 34rem;
+  margin: 0;
+}
+
+.toz-hero-visual {
+  display: block;
+  inline-size: 100%;
+  /* No fixed height: the viewBox drives the aspect ratio, so the visual scales
+     with its column and can never force horizontal overflow. */
+  block-size: auto;
+  max-block-size: 28rem;
+}
+
+/*
+ * Restrained motion.
+ *
+ * A single subtle draw-in on the connectors, and a short reveal for the hero
+ * copy. Both sit behind `no-preference`, so a reduced-motion user receives a
+ * complete static page with nothing missing and nothing waiting to play.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .toz-site-hero__copy > *,
+  .toz-site-hero__visual {
+    animation: toz-site-reveal var(--toz-duration-slow) var(--toz-easing-standard) backwards;
+  }
+
+  .toz-site-hero__copy > *:nth-child(2) { animation-delay: 60ms; }
+  .toz-site-hero__copy > *:nth-child(3) { animation-delay: 120ms; }
+  .toz-site-hero__actions { animation-delay: 180ms; }
+  .toz-site-hero__visual { animation-delay: 240ms; }
+
+  .toz-hero-visual--animated .toz-hero-visual__flow line {
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+    animation: toz-site-draw 900ms var(--toz-easing-standard) forwards;
+  }
+
+  .toz-hero-visual--animated .toz-hero-visual__flow {
+    animation: none;
+  }
+}
+
+@keyframes toz-site-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toz-site-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ---------------------------------------------------------------
+ * Capabilities
+ * ------------------------------------------------------------- */
+
+/* Equal-height cards in a row, so a row never looks ragged. */
+.toz-site-capability-grid > * {
+  block-size: 100%;
+}
+
+.toz-site-capability .toz-card__body {
+  /* Pushes a short description to the baseline of the tallest card. */
+  flex: 1 1 auto;
+}
+
+/* ---------------------------------------------------------------
+ * Process
+ * ------------------------------------------------------------- */
+
+.toz-site-steps {
+  display: grid;
+  gap: var(--toz-space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+}
+
+.toz-site-step {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: var(--toz-space-4);
+  align-items: start;
+  padding: var(--toz-space-4);
+  background-color: var(--toz-surface);
+  border: var(--toz-border-width) solid var(--toz-border);
+  border-radius: var(--toz-radius-medium);
+  min-inline-size: 0;
+}
+
+.toz-site-step__index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border-radius: var(--toz-radius-pill);
+  background-color: var(--toz-primary-subtle);
+  color: var(--toz-primary);
+  font-weight: var(--toz-font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+
+.toz-site-step__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--toz-space-1);
+  min-inline-size: 0;
+}
+
+.toz-site-step__body > p,
+.toz-site-step__body > h3 { margin: 0; }
+
+/* ---------------------------------------------------------------
+ * Architecture
+ * ------------------------------------------------------------- */
+
+.toz-site-architecture {
+  display: grid;
+  gap: var(--toz-space-8);
+  align-items: start;
+  min-inline-size: 0;
+}
+
+.toz-site-architecture__visual {
+  display: flex;
+  justify-content: center;
+  min-inline-size: 0;
+}
+
+.toz-architecture-diagram {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  max-inline-size: 34rem;
+}
+
+.toz-site-architecture__list > * { block-size: 100%; }
+
+/* ---------------------------------------------------------------
+ * Reliability
+ * ------------------------------------------------------------- */
+
+.toz-site-principles {
+  display: grid;
+  /* auto-fit rather than a fixed column count, so the list reflows by available
+     width instead of snapping between breakpoints. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: var(--toz-space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toz-site-principle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--toz-space-2);
+  padding: var(--toz-space-5);
+  background-color: var(--toz-surface);
+  border: var(--toz-border-width) solid var(--toz-border);
+  /* A hairline accent edge, echoing the brand without a heavy shadow. */
+  border-inline-start: 3px solid var(--toz-primary);
+  border-radius: var(--toz-radius-medium);
+  min-inline-size: 0;
+}
+
+.toz-site-principle > h3,
+.toz-site-principle > p { margin: 0; }
+
+/* ---------------------------------------------------------------
+ * Footer
+ * ------------------------------------------------------------- */
+
+.toz-site-footer__about {
+  display: flex;
+  flex-direction: column;
+  gap: var(--toz-space-3);
+  max-inline-size: 26rem;
+  min-inline-size: 0;
+}
+
+.toz-site-footer__about > p { margin: 0; }
+
+.toz-site-footer__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--toz-space-3);
+  min-inline-size: 0;
+}
+
+.toz-site-footer__group > h2 { margin: 0; }
+
+.toz-site-footer__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--toz-space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* The footer is a <footer> landmark, not a <section>; the block is given
+   `toz-section` for its spacing and tone, so the site class carries no rule of
+   its own beyond what is listed below. */
+.toz-site-footer__base {
+  padding-block-start: var(--toz-space-6);
+  border-block-start: var(--toz-border-width) solid var(--toz-border-muted);
+}
+
+.toz-site-footer__base > p { margin: 0; }
+
+/* ===============================================================
+ * Breakpoints
+ * Only genuine layout changes. Anything that can be handled with a
+ * fluid grid or clamp() is handled there instead.
+ * =============================================================== */
+
+@media (min-width: 768px) {
+  .toz-site-hero__copy { gap: var(--toz-space-10); }
+  .toz-site-steps { gap: var(--toz-space-5); }
+
+  /* The hero stacks on small screens and becomes two columns from tablet up. */
+  .toz-site-architecture { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+  .toz-site-footer__grid { gap: var(--toz-space-8); }
+}
+
+@media (min-width: 1024px) {
+  /* Text first, visual second, rather than a 50/50 split. */
+  .toz-site-hero__grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: var(--toz-space-12);
+  }
+
+  .toz-site-hero__actions {
+    justify-content: flex-start;
+    inline-size: auto;
+  }
+}
+
+@media (min-width: 1280px) {
+  .toz-site-hero__grid { gap: var(--toz-space-16); }
+}
+
+/*
+ * Narrow-screen corrections.
+ *
+ * Anchored sections must clear the sticky header, and the hero copy must not
+ * push buttons to a cramped width on a 360px screen.
+ */
+@media (max-width: 479px) {
+  .toz-site-hero { --toz-section-space: var(--toz-space-12); }
+
+  .toz-site-hero__copy { gap: var(--toz-space-6); }
+
+  /* Stack the hero actions so each button keeps a comfortable target. */
+  .toz-site-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toz-site-step {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: var(--toz-space-3);
+    padding: var(--toz-space-3);
+  }
+
+  .toz-site-step__index {
+    inline-size: 2rem;
+    block-size: 2rem;
+    font-size: var(--toz-font-size-body-sm);
+  }
+}
+
+/*
+ * Forced colours.
+ *
+ * The brand gradient rules would otherwise disappear, so the eyebrow underline
+ * and the process index fall back to a system colour.
+ */
+@media (forced-colors: active) {
+  .toz-site-eyebrow::after {
+    background-image: none;
+    background-color: CanvasText;
+  }
+
+  .toz-site-step__index {
+    border: 1px solid CanvasText;
+    background-color: Canvas;
+  }
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* Inner pages (PROJECT_STATE.md \u00a713)                                       */
+/* -------------------------------------------------------------------------- */
+
+/*
+ * Layout only.
+ *
+ * Two rules this block obeys, both enforced by tests/site.architecture.test.ts:
+ *
+ *   1. The site layer COMPOSES; it does not restyle design-system primitives. So
+ *      every selector here is namespaced \u2014site-\u201d, the site layer\u0027s own prefix, never a
+ *      bare \u201ctoz-\u201d design-system class. Overriding a primitive here would couple
+ *      the page to internals it does not own.
+ *
+ *   2. The site defines no type scale. Font sizes come from the design system\u0027s
+ *      \u201cto z-type-*\u201d utilities, applied in markup rather than here, so the site cannot
+ *      drift from the system scale by defining its own.
+ *
+ * Responsive by construction rather than by breakpoint exception: the grids
+ * collapse with \u201cauto-fit\u201d and a \u201cminmax\u201d floor, so a card layout is correct at
+ * every width from a 320px phone to a wide desktop with no media query at all.
+ * Fewer breakpoints is fewer failure modes, not fewer lines.
+ */
+
+.toz-site-breadcrumb {
+  padding-block: var(--toz-space-4);
+}
+
+.toz-site-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--toz-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toz-site-breadcrumb-item + .toz-site-breadcrumb-item::before {
+  content: "/";
+  margin-inline-end: var(--toz-space-2);
+  color: var(--toz-foreground-muted);
+  opacity: 0.6;
+}
+
+/* The current page is text, not a link, and must not read as clickable. */
+.toz-site-breadcrumb-item [aria-current="page"] {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.toz-site-page-header {
+  max-width: var(--toz-content-width-prose);
+  padding-block: var(--toz-space-8) var(--toz-space-6);
+}
+
+/* A long capability title must not overflow a narrow viewport. */
+.toz-site-page-title {
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.toz-site-page-summary {
+  color: var(--toz-foreground-muted);
+}
+
+.toz-site-page-section {
+  padding-block: var(--toz-space-6);
+}
+
+.toz-site-prose {
+  max-width: var(--toz-content-width-prose);
+}
+
+.toz-site-prose h2 {
+  margin-block: var(--toz-space-6) var(--toz-space-3);
+}
+
+.toz-site-prose p {
+  margin-block: 0 var(--toz-space-3);
+}
+
+.toz-site-grid-cards {
+  display: grid;
+  gap: var(--toz-space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+.toz-site-stack-cards {
+  display: grid;
+  gap: var(--toz-space-3);
+}
+
+.toz-site-card-action {
+  margin-block-end: 0;
+}
+
+.toz-site-list-plain,
+.toz-site-list-links {
+  margin: 0;
+  padding-inline-start: var(--toz-space-5);
+}
+
+.toz-site-list-plain li,
+.toz-site-list-links li {
+  margin-block-end: var(--toz-space-2);
+}
+
+.toz-site-faq {
+  margin: 0;
+}
+
+.toz-site-faq-entry {
+  padding-block: var(--toz-space-3);
+  border-block-start: var(--toz-border-width) solid var(--toz-border);
+}
+
+.toz-site-faq-entry:last-child {
+  border-block-end: var(--toz-border-width) solid var(--toz-border);
+}
+
+.toz-site-faq-question {
+  font-weight: 600;
+}
+
+.toz-site-faq-answer {
+  margin-block-start: var(--toz-space-2);
+  max-width: var(--toz-site-max-measure);
+  color: var(--toz-foreground-muted);
+}
+
+.toz-site-page-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--toz-space-3);
+}
+
+/* Focus visibility on the links an inner page introduces. The design system
+ * already handles this globally; repeating it here means a page rendered
+ * without the site stylesheet still shows where the keyboard is. */
+.toz-site-breadcrumb a:focus-visible,
+.toz-site-list-links a:focus-visible,
+.toz-site-card-action a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}

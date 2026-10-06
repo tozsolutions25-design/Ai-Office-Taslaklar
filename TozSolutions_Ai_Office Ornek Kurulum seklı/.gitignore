@@ -1,0 +1,18 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+# Mutation harness working copies (scripts/mutation-phase*.mjs). Patched copies of
+# `dist/` written next to it; deleted at the end of a run, ignored so an
+# interrupted one can never be committed.
+.mutation-*
+
+# Never commit real secrets. Only .env.example belongs in the repository.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets.json
+.probe-*

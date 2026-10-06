@@ -1,0 +1,7 @@
+kurallar:
+  - ad: "cloud_to_local_failover"
+    tetikleyici: ["HTTP_429", "QUOTA_EXCEEDED", "TIMEOUT", "OFFLINE"]
+    aksiyon: "YONLENDIR_LOCAL_OLLAMA"
+  - ad: "kritik_gorev_onayi"
+    tetikleyici: ["SISTEM_DEGISIKLIGI", "YUKSEK_MALIYET", "DIS_EPOSTA"]
+    aksiyon: "TELEGRAM_ONAY_ISTE"

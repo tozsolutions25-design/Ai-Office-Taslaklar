@@ -1,0 +1,260 @@
+/*
+ * TOZ AI Office — base layer.
+ *
+ * A minimal, opinionated foundation. Deliberately NOT a full reset: erasing
+ * browser defaults wholesale harms accessibility more than it helps, so this
+ * layer normalises only what it must and leaves user-agent behaviour such as
+ * focus outlines, text selection and form autofill intact.
+ *
+ * Layer order: tokens -> base -> layout -> components.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Anchors and in-page navigation must not hide under the sticky header. */
+  scroll-padding-top: var(--toz-space-24);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--toz-background);
+  color: var(--toz-foreground);
+  font-family: var(--toz-font-sans);
+  font-size: var(--toz-font-size-body);
+  line-height: var(--toz-line-height-body);
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevents a stray wide child from creating a horizontal scrollbar. */
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--toz-selection-background);
+  color: var(--toz-selection-foreground);
+}
+
+/*
+ * Focus.
+ *
+ * A visible, high-contrast focus ring on every interactive element. It is drawn
+ * with `outline` and `outline-offset` rather than `box-shadow` so it is not
+ * clipped by `overflow: hidden` and remains visible in forced-colours mode.
+ * `:focus-visible` keeps it out of the way of mouse users while guaranteeing it
+ * for keyboard users.
+ */
+:focus-visible {
+  outline: 2px solid var(--toz-focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--toz-radius-small);
+}
+
+/* Never remove focus indication outright. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid CanvasText;
+  }
+}
+
+/* ---------------------------------------------------------------
+ * Typography primitives
+ * ------------------------------------------------------------- */
+
+.toz-type {
+  margin: 0;
+  font-family: var(--toz-font-sans);
+  text-wrap: pretty;
+}
+
+.toz-type-display {
+  font-size: var(--toz-font-size-display);
+  line-height: var(--toz-line-height-display);
+  font-weight: var(--toz-font-weight-bold);
+  letter-spacing: var(--toz-letter-spacing-display);
+}
+
+.toz-type-h1 {
+  font-size: var(--toz-font-size-h1);
+  line-height: var(--toz-line-height-h1);
+  font-weight: var(--toz-font-weight-bold);
+  letter-spacing: var(--toz-letter-spacing-h1);
+}
+
+.toz-type-h2 {
+  font-size: var(--toz-font-size-h2);
+  line-height: var(--toz-line-height-h2);
+  font-weight: var(--toz-font-weight-semibold);
+  letter-spacing: var(--toz-letter-spacing-h2);
+}
+
+.toz-type-h3 {
+  font-size: var(--toz-font-size-h3);
+  line-height: var(--toz-line-height-h3);
+  font-weight: var(--toz-font-weight-semibold);
+  letter-spacing: var(--toz-letter-spacing-h3);
+}
+
+.toz-type-h4 {
+  font-size: var(--toz-font-size-h4);
+  line-height: var(--toz-line-height-h4);
+  font-weight: var(--toz-font-weight-semibold);
+  letter-spacing: var(--toz-letter-spacing-h4);
+}
+
+.toz-type-body-lg {
+  font-size: var(--toz-font-size-body-lg);
+  line-height: var(--toz-line-height-body-lg);
+}
+
+.toz-type-body {
+  font-size: var(--toz-font-size-body);
+  line-height: var(--toz-line-height-body);
+}
+
+.toz-type-body-sm {
+  font-size: var(--toz-font-size-body-sm);
+  line-height: var(--toz-line-height-body-sm);
+}
+
+.toz-type-caption {
+  font-size: var(--toz-font-size-caption);
+  line-height: var(--toz-line-height-caption);
+  font-weight: var(--toz-font-weight-medium);
+  letter-spacing: var(--toz-letter-spacing-caption);
+}
+
+.toz-type-label {
+  font-size: var(--toz-font-size-label);
+  line-height: var(--toz-line-height-label);
+  font-weight: var(--toz-font-weight-semibold);
+  letter-spacing: var(--toz-letter-spacing-label);
+}
+
+.toz-type-button {
+  font-size: var(--toz-font-size-button);
+  line-height: var(--toz-line-height-button);
+  font-weight: var(--toz-font-weight-semibold);
+  letter-spacing: var(--toz-letter-spacing-button);
+}
+
+.toz-type-code {
+  font-family: var(--toz-font-mono);
+  font-size: var(--toz-font-size-code);
+  line-height: var(--toz-line-height-code);
+  font-weight: var(--toz-font-weight-medium);
+}
+
+.toz-font-mono {
+  font-family: var(--toz-font-mono);
+}
+
+.toz-font-sans {
+  font-family: var(--toz-font-sans);
+}
+
+/* Text tones */
+.toz-text-default { color: var(--toz-foreground); }
+.toz-text-muted { color: var(--toz-foreground-muted); }
+.toz-text-subtle { color: var(--toz-foreground-subtle); }
+.toz-text-primary { color: var(--toz-primary); }
+.toz-text-success { color: var(--toz-success); }
+.toz-text-warning { color: var(--toz-warning); }
+.toz-text-destructive { color: var(--toz-destructive); }
+.toz-text-info { color: var(--toz-info); }
+.toz-text-on-accent { color: var(--toz-foreground-on-accent); }
+
+.toz-text-start { text-align: start; }
+.toz-text-center { text-align: center; }
+.toz-text-end { text-align: end; }
+
+.toz-weight-regular { font-weight: var(--toz-font-weight-regular); }
+.toz-weight-medium { font-weight: var(--toz-font-weight-medium); }
+.toz-weight-semibold { font-weight: var(--toz-font-weight-semibold); }
+.toz-weight-bold { font-weight: var(--toz-font-weight-bold); }
+
+/* ---------------------------------------------------------------
+ * Defaults for bare elements inside component scopes
+ * ------------------------------------------------------------- */
+
+.toz-prose {
+  max-width: var(--toz-content-width-prose);
+  color: var(--toz-foreground-muted);
+}
+
+.toz-prose > * + * {
+  margin-block-start: var(--toz-space-4);
+}
+
+.toz-prose h2,
+.toz-prose h3,
+.toz-prose h4 {
+  color: var(--toz-foreground);
+  margin-block-start: var(--toz-space-8);
+}
+
+.toz-prose a {
+  color: var(--toz-primary);
+  text-underline-offset: 0.2em;
+}
+
+.toz-prose code {
+  background-color: var(--toz-surface-muted);
+  border: var(--toz-border-width) solid var(--toz-border-muted);
+  border-radius: var(--toz-radius-small);
+  padding-inline: 0.35em;
+}
+
+/* ---------------------------------------------------------------
+ * Visually hidden, still announced
+ * Used for skip links, icon-only control labels and live-region text.
+ * ------------------------------------------------------------- */
+.toz-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Becomes visible when focused — the skip link pattern. */
+.toz-skip-link {
+  position: absolute;
+  inset-inline-start: var(--toz-space-4);
+  inset-block-start: var(--toz-space-4);
+  z-index: var(--toz-z-tooltip);
+  transform: translateY(calc(-100% - var(--toz-space-8)));
+  background-color: var(--toz-primary);
+  color: var(--toz-primary-foreground);
+  border-radius: var(--toz-radius-button);
+  padding: var(--toz-space-3) var(--toz-space-4);
+  font-size: var(--toz-font-size-button);
+  font-weight: var(--toz-font-weight-semibold);
+  text-decoration: none;
+  transition: transform var(--toz-duration-fast) var(--toz-easing-standard);
+}
+
+.toz-skip-link:focus-visible {
+  transform: translateY(0);
+}

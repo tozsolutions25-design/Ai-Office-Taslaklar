@@ -1,0 +1,67 @@
+{
+  "_aciklama": "TOZ SOLUTIONS v3 — SAGLAYICI KOTALARI",
+
+  "_KRITIK_UYARI": [
+    "BU RAKAMLAR 2026-10-05 ITIBARIYLA DOGRULANMADI.",
+    "Her limitin resmi kaynagi ve dogrulama tarihi eklenmelidir.",
+    "V1'de openrouter 50 idi. V2'de 200 yazildi — KAYNAKSIZ degistirildi.",
+    "groq ucretsiz katmani gunluk DEGIL dakika hiz limiti kullanir.",
+    "Bu dosya tahmin DEGIL gozlem kaydidir. Yanlissa maliyet carpani carpar.",
+    "Ilk gercek cagri sonrasi 'kullanilan' degerleri dogrulanacak."
+  ],
+
+  "openrouter": {
+    "model": "google/gemini-2.0-flash-exp:free",
+    "anahtar_degiskeni": "OPENROUTER_API_KEY",
+    "ucm": "https://openrouter.ai/api/v1/chat/completions",
+    "gunluk_limit": 200,
+    "kullanilan": 0,
+    "dogrulama_durumu": "yapilmadi",
+    "dogrulama_tarihi": null,
+    "dogrulama_kaynagi": null,
+    "not": "V1'de 50 istek/gun yaziliydi. 200 degeri kaynaksiz."
+  },
+
+  "gemini": {
+    "model": "gemini-2.0-flash",
+    "anahtar_degiskeni": "GEMINI_API_KEY",
+    "ucm": "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+    "gunluk_limit": 1500,
+    "kullanilan": 0,
+    "dogrulama_durumu": "yapilmadi",
+    "dogrulama_tarihi": null,
+    "dogrulama_kaynagi": null,
+    "not": "Bu rakam 2026-09 tarihli bir TASLAK dosyadan geldi."
+  },
+
+  "groq": {
+    "model": "llama-3.3-70b-versatile",
+    "anahtar_degiskeni": "GROQ_API_KEY",
+    "ucm": "https://api.groq.com/openai/v1/chat/completions",
+    "gunluk_limit": 14400,
+    "kullanilan": 0,
+    "dogrulama_durumu": "supheli",
+    "dogrulama_tarihi": null,
+    "dogrulama_kaynagi": null,
+    "not": "14400/gun olarak yazildi ama Groq ucretsiz katman GUNLUK degil DAKIKA hiz limiti kullanir. Bu deger muhtemelen YANLIS."
+  },
+
+  "local_ollama": {
+    "model": "qwen2.5-coder:7b",
+    "ucm": "http://localhost:11434",
+    "gunluk_limit": -1,
+    "kullanilan": 0,
+    "dogrulama_durumu": "kurulumda_test_edilecek",
+    "dogrulama_tarihi": null,
+    "dogrulama_kaynagi": null,
+    "not": "Yerel model. Maliyeti SIFIR (API fiyati uygulanmaz). Model adi kurulumda dogrulanmali — 'local-model' gibi sahte ad olmamali."
+  },
+
+  "_rota_sirasi": [
+    "openrouter",
+    "gemini",
+    "groq",
+    "local_ollama"
+  ],
+  "_rota_gerekcesi": "Kalite oncelikli. Ucretsiz bulut en kaliteli yanit verir; yerel model MALIYET SIFIR oldugu icin ama kalitesi dusuk oldugu icin EN SONDA."
+}

@@ -1,0 +1,55 @@
+{
+  "name": "toz-ai-office",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "TOZ AI Office - core agent orchestration infrastructure (PHASE 01)",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    },
+    "./design-system": {
+      "types": "./dist/src/design-system/index.d.ts",
+      "default": "./dist/src/design-system/index.js"
+    },
+    "./design-system/styles/*.css": "./dist/src/design-system/styles/*.css",
+    "./site": {
+      "types": "./dist/src/site/index.d.ts",
+      "default": "./dist/src/site/index.js"
+    },
+    "./orchestration": {
+      "types": "./dist/src/orchestration/index.d.ts",
+      "default": "./dist/src/orchestration/index.js"
+    }
+  },
+  "files": [
+    "dist/src"
+  ],
+  "scripts": {
+    "clean": "node --eval \"import('node:fs').then(fs => fs.rmSync('dist',{recursive:true,force:true}))\"",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc && npm run build:assets",
+    "build:assets": "node scripts/copy-assets.mjs",
+    "lint": "eslint .",
+    "test": "npm run build && npm run test:unit",
+    "test:unit": "node --test \"dist/tests/*.test.js\"",
+    "validate": "npm run typecheck && npm run lint && npm run test:unit",
+    "config:validate": "node dist/src/cli/validate-config.js",
+    "runtime:describe": "node dist/src/orchestration/cli/bootstrap-runtime.js",
+    "ui:preview": "npm run build && node scripts/build-preview.mjs",
+    "site:build": "npm run build && node scripts/build-site.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/node": "^22.10.2",
+    "eslint": "^9.17.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.1"
+  }
+}

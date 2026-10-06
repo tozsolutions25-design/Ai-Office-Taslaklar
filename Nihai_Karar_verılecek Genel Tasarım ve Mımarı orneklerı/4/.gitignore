@@ -1,0 +1,51 @@
+# GIT'E GIRMEMESI GEREKENLER (K-04)
+
+# --- SIRLAR ---
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+id_rsa
+id_ed25519
+anahtar*.txt
+api-keys.txt
+sirlar.txt
+credentials.txt
+secrets*
+
+# --- VERITANI (gorev icerigi, musteri bilgisi) ---
+*.db
+*.sqlite
+*.sqlite3
+
+# --- LOG (anahtar degeri yanlislikla yazilabilir) ---
+*.log
+00-core/04-loglar/
+
+# --- GECICI ---
+__pycache__/
+*.py[cod]
+*.tmp
+*.bak
+~$*
+.DS_Store
+Thumbs.db
+
+# --- MODEL / AGIRLIK ---
+*.gguf
+*.bin
+*.safetensors
+models/
+
+# --- SANAL OFIS ---
+*.blend
+*.fbx
+*.glb
+
+# --- OBSIDIAN ---
+.obsidian/workspace*.json
+
+# --- BULUT ARACLARI ---
+.terraform/
+.terraform.lock.hcl

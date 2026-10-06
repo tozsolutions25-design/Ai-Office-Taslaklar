@@ -1,0 +1,23 @@
+sirket:
+  adi: "Toz Solutions Otonom AI Ofis"
+  versiyon: "2.0.0"
+  mod: "hybrid-zero-cost"
+
+modeller:
+  cloud_oncelik:
+    - provider: "openrouter"
+      model: "google/gemini-2.0-flash-exp:free"
+    - provider: "gemini"
+      model: "gemini-1.5-flash"
+    - provider: "groq"
+      model: "llama-3.3-70b-versatile"
+  local_failover:
+    - provider: "ollama"
+      model: "qwen2.5-coder:latest"
+    - provider: "lmstudio"
+      model: "local-model"
+
+telegram:
+  onay_mekanizmasi: true
+  timeout_dakika: 30
+  otomatik_iptal: false
